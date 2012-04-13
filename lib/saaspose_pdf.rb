@@ -10,8 +10,8 @@ module Pdf
            # Instance variables   
            @name = name
         end
-		 # Uploads file from the local path to the remote folder.
-		 # * :localFile represents full local file path and name
+	     # Converts the file available at Saaspose Storage and saves converted file locally.
+		 # * :localFile represents converted local file path and name
          # * :saveImageFormat represents the converted image format. For a list of supported image formats, please visit 
 		 #  http://saaspose.com/docs/display/pdf/page
          # * :pageNumber represents the page number in the PDF document

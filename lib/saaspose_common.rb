@@ -6,12 +6,13 @@ require 'base64'
 require 'uri'
 require 'rexml/document'
 
-# This module provide common classes and methods to be ued by other modules
+# This module provide common classes and methods to be ued by other SDK modules
 module Common
     
     # This class allows you to set the base host Saaspose URI
 	class Product
-	    def self.setBaseProductUri(productURI)
+     # Sets the host product URI.
+	def self.setBaseProductUri(productURI)
 		     $productURI = productURI
 		end
 	end
@@ -28,8 +29,6 @@ module Common
     class Utils
 	     # Signs a URI with your appSID and Key.
 		 # * :url describes the URL to sign
-         # * :appSID holds the appSID value
-         # * :key holds the key value		 
          def self.sign(url)
   	         url = URI.escape(url)
   	         parsedURL = URI.parse(url)
@@ -89,6 +88,7 @@ module Common
              end
              return pages.size
 	     end
+		 # Saves the response stream to a local file.
 		 def self.saveFile(responseStream,localFile)
 		     open(localFile, "wb") do |file|
                  file.write(responseStream.body)

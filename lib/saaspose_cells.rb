@@ -10,8 +10,8 @@ module Cells
              # Instance variables   
              @name = name
         end
-	     # Uploads file from the local path to the remote folder.
-		 # * :localFile represents full local file path and name
+	     # Converts the file available at Saaspose Storage and saves converted file locally.
+		 # * :localFile represents converted local file path and name
          # * :saveFormat represents the converted format. For a list of supported formats, please visit 
 		 #  http://saaspose.com/docs/display/cells/workbook		 
         def convert(localFile,saveFormat)
