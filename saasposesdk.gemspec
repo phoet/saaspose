@@ -8,6 +8,9 @@ Gem::Specification.new do |s|
   s.email       = 'contact@saaspose.com'
   s.files       = Dir['lib/*.rb']
   s.homepage = 'http://www.saaspose.com'
- 
- 
+
+  s.add_dependency 'rest-client', '~> 1.6'
+
+  s.add_development_dependency 'rspec', '~> 2.9'
+  s.add_development_dependency 'pry', '~> 0.9'
 end
