@@ -8,7 +8,7 @@ require 'rexml/document'
 
 # This module provide common classes and methods to be ued by other SDK modules
 module Common
-    
+
     # This class allows you to set the base host Saaspose URI
 	class Product
      # Sets the host product URI.
@@ -19,12 +19,12 @@ module Common
 
 	# This class allows you to set the AppSID and AppKey values you get upon signing up
     class SaasposeApp
-         def initialize(appSID,appKey)  
+         def initialize(appSID,appKey)
 		     $appSID = appSID
 		     $appKey = appKey
-         end	
+         end
 	end
-		
+
     # This class provides common methods to be repeatedly used by other wrapper classes
     class Utils
 	     # Signs a URI with your appSID and Key.
@@ -32,9 +32,9 @@ module Common
          def self.sign(url)
   	         url = URI.escape(url)
   	         parsedURL = URI.parse(url)
-  
+
   	         urlToSign =''
-  	         if parsedURL.query.nil? 
+  	         if parsedURL.query.nil?
 		         urlToSign = parsedURL.scheme+"://"+ parsedURL.host + parsedURL.path + "?appSID=" + $appSID
   	         else
 		         urlToSign = parsedURL.scheme+"://"+ parsedURL.host + parsedURL.path + '?' + parsedURL.query + "&appSID=" + $appSID
@@ -42,11 +42,11 @@ module Common
 
   	         # create a signature using the private key and the URL
   	         rawSignature = OpenSSL::HMAC.digest(OpenSSL::Digest::Digest.new('sha1'), $appKey, urlToSign)
-  
+
   	         #Convert raw to encoded string
   	         signature = Base64.strict_encode64(rawSignature).tr('+/','-_')
-  
-  	         #remove invalid character 
+
+  	         #remove invalid character
   	         signature = signature.gsub(/[=_-]/,'=' => '','_' => '%2f','-' => '%2b')
 
   	         #Define expression
@@ -58,10 +58,10 @@ module Common
 	         end
 
   	         # prepend the server and append the signature.
-  	         signedUrl = urlToSign + "&signature=#{signature}"  
+  	         signedUrl = urlToSign + "&signature=#{signature}"
   	         return signedUrl
          end
-    
+
 	     # Parses JSON date value to a valid date format
 		 # * :datestring holds the JSON Date value
 	     def self.parse_date(datestring)
@@ -71,18 +71,18 @@ module Common
 
          # Uploads a binary file from the client system
 		 # * :localfile holds the local file path alongwith name
-		 # * :url holds the required url to use while uploading the file to Saaspose Storage		 
+		 # * :url holds the required url to use while uploading the file to Saaspose Storage
          def self.uploadFileBinary(localfile,url)
 		     RestClient.put( url,File.new(localfile, 'rb'))
          end
-         
+
          # Gets the count of a particular field in the response
 		 # * :localfile holds the local file path alongwith name
-		 # * :url holds the required url to use while uploading the file to Saaspose Storage		 		 
-	     def self.getFieldCount(url,fieldName)	    
+		 # * :url holds the required url to use while uploading the file to Saaspose Storage
+	     def self.getFieldCount(url,fieldName)
 		     response = RestClient.get(url, :accept => 'application/xml')
 		     doc = REXML::Document.new(response.body)
-		     pages = []		
+		     pages = []
 		     doc.elements.each(fieldName) do |ele|
                  pages << ele.text
              end
