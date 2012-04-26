@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    saasposesdk (0.0.3)
+    saasposesdk (0.1.0)
       rest-client (~> 1.6)
 
 GEM
@@ -40,5 +40,5 @@ DEPENDENCIES
   pry (~> 0.9)
   rspec (~> 2.9)
   saasposesdk!
-  vcr (~> 2.0)
+  vcr (~> 2.1)
   webmock (~> 1.8)
