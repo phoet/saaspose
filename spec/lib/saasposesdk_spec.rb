@@ -23,6 +23,10 @@ describe "saasposesdk" do
       pdf_converter.convert(PNG_PATH, 'png', '1', '800', '600')
       File.exists?(PNG_PATH).should be_true
     end
+
+    it "should read the number of pages from a remote pdf", :vcr => true do
+      pdf_converter.getPageCount.should eql(1)
+    end
   end
 
   context "slides" do
