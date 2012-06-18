@@ -1,6 +1,3 @@
 script: "bundle exec rspec"
 rvm:
   - 1.9.3
-branches:
-  only:
-    - add_spec
