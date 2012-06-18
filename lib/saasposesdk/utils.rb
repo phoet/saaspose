@@ -16,13 +16,13 @@ module Saasposesdk
 
         urlToSign =''
         if parsedURL.query.nil?
-          urlToSign = parsedURL.scheme+"://"+ parsedURL.host + parsedURL.path + "?appSID=" + $appSID
+          urlToSign = parsedURL.scheme+"://"+ parsedURL.host + parsedURL.path + "?appSID=" + Configuration.app_sid
         else
-          urlToSign = parsedURL.scheme+"://"+ parsedURL.host + parsedURL.path + '?' + parsedURL.query + "&appSID=" + $appSID
+          urlToSign = parsedURL.scheme+"://"+ parsedURL.host + parsedURL.path + '?' + parsedURL.query + "&appSID=" + Configuration.app_sid
         end
 
         # create a signature using the private key and the URL
-        rawSignature = OpenSSL::HMAC.digest(OpenSSL::Digest::Digest.new('sha1'), $appKey, urlToSign)
+        rawSignature = OpenSSL::HMAC.digest(OpenSSL::Digest::Digest.new('sha1'), Configuration.app_key, urlToSign)
 
         #Convert raw to encoded string
         signature = Base64.strict_encode64(rawSignature).tr('+/','-_')

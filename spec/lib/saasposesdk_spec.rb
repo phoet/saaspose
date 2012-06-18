@@ -69,6 +69,20 @@ describe "saasposesdk" do
       files.map(&:Name).should include(TEST_PDF_NAME)
     end
   end
+
+  context "utils" do
+    before(:each) do
+      Saasposesdk::Configuration.configure do |config|
+        config.app_sid = "SAASPOSE_APPSID"
+        config.app_key = "SAASPOSE_APPKEY"
+      end
+    end
+
+    let(:url) { "http://example.com/path?uschi=true&a_param=yes" }
+    it "should sign a uri" do
+      Saasposesdk::Utils.sign(url).should eql("http://example.com/path?uschi=true&a_param=yes&appSID=SAASPOSE_APPSID&signature=zl%2BjolbjggyKZ31QgflGVILu%2F0I")
+    end
+  end
 end
 
 def configure_client
