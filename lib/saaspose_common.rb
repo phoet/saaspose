@@ -13,7 +13,6 @@ module Common
   class Product
     # Sets the host product URI.
     def self.setBaseProductUri(productURI)
-      $productURI = productURI
       Saasposesdk::Configuration.configure :product_uri => productURI
     end
   end
@@ -21,8 +20,6 @@ module Common
   # This class allows you to set the AppSID and AppKey values you get upon signing up
   class SaasposeApp
     def initialize(appSID,appKey)
-      $appSID = appSID
-      $appKey = appKey
       Saasposesdk::Configuration.configure :app_sid => appSID, :app_key => appKey
     end
   end
