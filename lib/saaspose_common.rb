@@ -1,11 +1,3 @@
-require 'rubygems'
-require 'rest_client'
-require 'json'
-require 'openssl'
-require 'base64'
-require 'uri'
-require 'rexml/document'
-
 # This module provide common classes and methods to be ued by other SDK modules
 module Common
 
