@@ -13,23 +13,19 @@ module Saasposesdk
 
       def getFiles(remote_folder_path)
         url_folder = Configuration.product_uri + '/storage/folder'
-        url_file = ''
-        if not remote_folder_path.empty?
-          url_file = Configuration.product_uri + '/storage/folder/' + remote_folder_path
-        end
-        signed_url = Utils.sign(url_folder)
-        response = RestClient.get(signed_url, :accept => 'application/json')
-        result = JSON.parse(response.body)
-        apps = Array.new(result["Files"].size)
+        url_folder << "/#{remote_folder_path}" unless remote_folder_path.empty?
 
-        for i in 0..result["Files"].size - 1
-          apps[i] = File.new
-          apps[i].Name = result["Files"][i]["Name"]
-          apps[i].IsFolder = result["Files"][i]["IsFolder"]
-          apps[i].Size = result["Files"][i]["Size"]
-          apps[i].ModifiedDate = Utils.parse_date(result["Files"][i]["ModifiedDate"])
+        signed_url  = Utils.sign(url_folder)
+        response    = RestClient.get(signed_url, :accept => 'application/json')
+        result      = JSON.parse(response.body)
+
+        result["Files"].map do |file|
+          file = File.new
+          file.Name         = file["Name"]
+          file.IsFolder     = file["IsFolder"]
+          file.Size         = file["Size"]
+          file.ModifiedDate = Utils.parse_date(file["ModifiedDate"])
         end
-        return apps
       end
     end
   end
