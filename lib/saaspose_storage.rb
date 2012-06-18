@@ -31,6 +31,7 @@ module Storage
       signedURL = Common::Utils.sign(urlFile)
       Common::Utils.uploadFileBinary(localFilePath,signedURL)
     end
+
     # Retrieves Files and Folder information from a remote folder. The method returns an Array of AppFile objects.
     # * :remoteFolderPath represents remote folder relative to the root. Pass empty string for the root folder.
     def self.getFiles(remoteFolderPath)

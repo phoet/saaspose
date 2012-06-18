@@ -90,6 +90,7 @@ module Common
       end
       return pages.size
     end
+
     # Saves the response stream to a local file.
     def self.saveFile(responseStream,localFile)
       open(localFile, "wb") do |file|
