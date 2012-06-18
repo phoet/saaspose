@@ -1,24 +1,24 @@
 module Saasposesdk
   class Storage
     class << self
-      def uploadFile(localFilePath, remoteFolderPath)
-        fileName = ::File.basename(localFilePath)
-        urlFile = Configuration.product_uri + '/storage/file/' + fileName
-        if not remoteFolderPath.empty?
-          urlFile = Configuration.product_uri + '/storage/file/' + remoteFolderPath + '/' + fileName
+      def uploadFile(local_file_path, remote_folder_path)
+        file_name = ::File.basename(local_file_path)
+        url_file = Configuration.product_uri + '/storage/file/' + file_name
+        if not remote_folder_path.empty?
+          url_file = Configuration.product_uri + '/storage/file/' + remote_folder_path + '/' + file_name
         end
-        signedURL = Utils.sign(urlFile)
-        Utils.uploadFileBinary(localFilePath,signedURL)
+        signed_url = Utils.sign(url_file)
+        Utils.uploadFileBinary(local_file_path,signed_url)
       end
 
-      def getFiles(remoteFolderPath)
-        urlFolder = Configuration.product_uri + '/storage/folder'
-        urlFile = ''
-        if not remoteFolderPath.empty?
-          urlFile = Configuration.product_uri + '/storage/folder/' + remoteFolderPath
+      def getFiles(remote_folder_path)
+        url_folder = Configuration.product_uri + '/storage/folder'
+        url_file = ''
+        if not remote_folder_path.empty?
+          url_file = Configuration.product_uri + '/storage/folder/' + remote_folder_path
         end
-        signedURL = Utils.sign(urlFolder)
-        response = RestClient.get(signedURL, :accept => 'application/json')
+        signed_url = Utils.sign(url_folder)
+        response = RestClient.get(signed_url, :accept => 'application/json')
         result = JSON.parse(response.body)
         apps = Array.new(result["Files"].size)
 
