@@ -65,7 +65,7 @@ describe "saasposesdk" do
 
     it "should get a list of files from the root dir", :vcr => true do
       files = Storage::Folder.getFiles(REMOTE_ROOT_DIR)
-      files.first.should be_an_instance_of(Storage::AppFile)
+      files.first.should be_an_instance_of(Saasposesdk::File)
       files.map(&:Name).should include(TEST_PDF_NAME)
     end
   end
