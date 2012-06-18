@@ -3,15 +3,18 @@ require "spec_helper"
 describe "saasposesdk" do
   PNG_PATH = "/tmp/test.png"
   PDF_PATH = "/tmp/test.pdf"
+
   TEST_PDF_NAME = "saaspose_test.pdf"
   TEST_PPT_NAME = "saaspose_test.ppt"
+  TEST_DOC_NAME = "saaspose_test.doc"
 
   let(:pdf_converter) { Pdf::Convertor.new(TEST_PDF_NAME) }
   let(:ppt_converter) { Slides::Convertor.new(TEST_PPT_NAME) }
+  let(:doc_converter) { Words::Convertor.new(TEST_DOC_NAME) }
 
   before(:all) do
     configure_client
-    [TEST_PDF_NAME, TEST_PPT_NAME].each { |path| ensure_remote_file(path) }
+    [TEST_PDF_NAME, TEST_PPT_NAME, TEST_DOC_NAME].each { |path| ensure_remote_file(path) }
   end
 
   before(:each) do
@@ -32,6 +35,13 @@ describe "saasposesdk" do
   context "slides" do
     it "should generate a pdf from a remote ppt", :vcr => true do
       ppt_converter.convert(PDF_PATH, 'pdf')
+      File.exists?(PDF_PATH).should be_true
+    end
+  end
+
+  context "words" do
+    it "should generate a pdf from a remote doc", :vcr => true do
+      doc_converter.convert(PDF_PATH, 'doc')
       File.exists?(PDF_PATH).should be_true
     end
   end
