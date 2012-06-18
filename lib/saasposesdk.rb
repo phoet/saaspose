@@ -1,4 +1,4 @@
-#this file refers all the other necessary files of the saaspose.sdk for Ruby.
+require 'logger'
 
 require 'saaspose_common'
 require 'saaspose_storage'
@@ -9,3 +9,4 @@ require 'saaspose_slides'
 require "saasposesdk/version"
 require "saasposesdk/configuration"
 require "saasposesdk/pdf"
+require "saasposesdk/slides"

@@ -4,6 +4,7 @@ module Saasposesdk
       attr_accessor :product_uri
       attr_accessor :app_sid, :app_key
       attr_accessor :logger
+      attr_accessor :init
 
       def configure(options={})
         init_config
@@ -17,7 +18,15 @@ module Saasposesdk
         self
       end
 
-      def init_config
+      def reset
+        init_config(true)
+      end
+
+      private
+
+      def init_config(force=false)
+        return if @init && !force
+        @init     = true
         @product_uri  = ""
         @app_key      = ""
         @app_sid      = ""
