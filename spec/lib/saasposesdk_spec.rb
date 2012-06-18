@@ -1,6 +1,8 @@
 require "spec_helper"
 
 describe "saasposesdk" do
+  REMOTE_ROOT_DIR = ""
+
   PNG_PATH = "/tmp/test.png"
   PDF_PATH = "/tmp/test.pdf"
 
@@ -54,6 +56,19 @@ describe "saasposesdk" do
       File.exists?(PDF_PATH).should be_true
     end
   end
+
+  context "storage" do
+    it "should upload a file to the root dir", :vcr => true do
+      resp = Storage::Folder.uploadFile(fixture_path(TEST_PDF_NAME), REMOTE_ROOT_DIR)
+      resp.should match("<Status>OK</Status>")
+    end
+
+    it "should get a list of files from the root dir", :vcr => true do
+      files = Storage::Folder.getFiles(REMOTE_ROOT_DIR)
+      files.first.should be_an_instance_of(Storage::AppFile)
+      files.map(&:Name).should include(TEST_PDF_NAME)
+    end
+  end
 end
 
 def configure_client
@@ -70,7 +85,11 @@ def ensure_remote_file(test_file)
   VCR.use_cassette("ensure_remote_file #{test_file}", :record => :new_episodes, :match_requests_on => [:host, :path]) do
     unless Storage::Folder.getFiles("").map(&:Name).include?(test_file)
       puts "uploading #{test_file} for testing purposes"
-      Storage::Folder.uploadFile(File.expand_path("../fixtures/#{test_file}", File.dirname(__FILE__)), "")
+      Storage::Folder.uploadFile(fixture_path(test_file), REMOTE_ROOT_DIR)
     end
   end
+end
+
+def fixture_path(name)
+  File.expand_path("../fixtures/#{name}", File.dirname(__FILE__))
 end

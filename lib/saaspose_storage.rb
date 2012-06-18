@@ -7,16 +7,6 @@ module Storage
     attr_accessor :Name, :IsFolder, :ModifiedDate, :Size
   end
 
-  # This class represents IsExist Saaspose URI data
-  class FileExist
-    attr_accessor :IsExist, :IsFolder
-  end
-
-  # This class represents Disc Saaspose URI data
-  class Disc
-    attr_accessor :TotalSize, :UsedSize
-  end
-
   # This class provides functionality to manage files in a Remote Saaspose Folder
   class Folder
     # Uploads file from the local path to the remote folder.
