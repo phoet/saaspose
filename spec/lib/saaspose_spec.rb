@@ -53,15 +53,18 @@ describe "saaspose" do
   end
 
   context "storage" do
+    let(:folder) { Saaspose::Storage::File.new("test", true, Time.at(1334562314), 0) }
+
     it "should upload a file to the root dir", :vcr => true do
-      resp = Saaspose::Storage.uploadFile(fixture_path(TEST_PDF_NAME), REMOTE_ROOT_DIR)
+      resp = Saaspose::Storage.upload(fixture_path(TEST_PDF_NAME), REMOTE_ROOT_DIR)
       resp.should match("<Status>OK</Status>")
     end
 
     it "should get a list of files from the root dir", :vcr => true do
-      files = Saaspose::Storage.getFiles(REMOTE_ROOT_DIR)
-      files.first.should be_an_instance_of(Saaspose::File)
-      files.map(&:Name).should include(TEST_PDF_NAME)
+      files = Saaspose::Storage.files(REMOTE_ROOT_DIR)
+      files.first.should be_an_instance_of(Saaspose::Storage::File)
+      files.map(&:name).should include(TEST_PDF_NAME)
+      files.first.should eql(folder)
     end
   end
 
@@ -90,9 +93,9 @@ end
 
 def ensure_remote_file(test_file)
   VCR.use_cassette("ensure_remote_file #{test_file}", :record => :new_episodes, :match_requests_on => [:host, :path]) do
-    unless Saaspose::Storage.getFiles("").map(&:Name).include?(test_file)
+    unless Saaspose::Storage.files.map(&:name).include?(test_file)
       puts "uploading #{test_file} for testing purposes"
-      Saaspose::Storage.uploadFile(fixture_path(test_file), REMOTE_ROOT_DIR)
+      Saaspose::Storage.upload(fixture_path(test_file), REMOTE_ROOT_DIR)
     end
   end
 end

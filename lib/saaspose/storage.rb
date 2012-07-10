@@ -1,14 +1,18 @@
+require "json"
+
 module Saaspose
   class Storage
+    File = Struct.new(:name, :folder, :modified, :size)
+
     class << self
-      def uploadFile(local_file_path, remote_folder_path)
+      def upload(local_file_path, remote_folder_path)
         file_name = ::File.basename(local_file_path)
         url_file = "#{Configuration.product_uri}/storage/file/#{remote_folder_path.empty? ? "" : "/#{remote_folder_path}" }#{file_name}"
         signed_url = Utils.sign(url_file)
-        Utils.uploadFileBinary(local_file_path, signed_url)
+        RestClient.put(signed_url, ::File.new(local_file_path, 'rb'))
       end
 
-      def getFiles(remote_folder_path)
+      def files(remote_folder_path="")
         url_folder = "#{Configuration.product_uri}/storage/folder"
         url_folder << "/#{remote_folder_path}" unless remote_folder_path.empty?
 
@@ -17,12 +21,7 @@ module Saaspose
         result      = JSON.parse(response.body)
 
         result["Files"].map do |entry|
-          file = File.new
-          file.Name         = entry["Name"]
-          file.IsFolder     = entry["IsFolder"]
-          file.Size         = entry["Size"]
-          file.ModifiedDate = Utils.parse_date(entry["ModifiedDate"])
-          file
+          File.new(entry["Name"], entry["IsFolder"], Utils.parse_date(entry["ModifiedDate"]), entry["Size"])
         end
       end
     end

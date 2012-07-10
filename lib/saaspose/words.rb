@@ -5,7 +5,7 @@ module Saaspose
         urlDoc = Configuration.product_uri + '/words/' + name + '?format=' + save_format
         signedURL = Utils.sign(urlDoc)
         response = RestClient.get(signedURL, :accept => 'application/json')
-        Utils.saveFile(response, local_file)
+        Utils.save_file(response, local_file)
       end
     end
   end

@@ -1,9 +1,7 @@
 require 'rest_client'
-require 'json'
 require 'openssl'
 require 'base64'
 require 'uri'
-require 'rexml/document'
 
 module Saaspose
   class Utils
@@ -49,25 +47,8 @@ module Saaspose
         Time.at((seconds_since_epoch-(21600000 + 18000000))/1000)
       end
 
-      # Uploads a binary file from the client system
-      # * :local_file holds the local file path alongwith name
-      # * :url holds the required url to use while uploading the file to Saaspose Storage
-      def uploadFileBinary(local_file, url)
-        RestClient.put(url, ::File.new(local_file, 'rb'))
-      end
-
-      # Gets the count of a particular field in the response
-      # * :url holds the required url to use while uploading the file to Saaspose Storage
-      def getFieldCount(url, field_name)
-        response = RestClient.get(url, :accept => 'application/xml')
-        REXML::Document.new(response.body).elements.size
-      end
-
-      # Saves the response stream to a local file.
-      def saveFile(response_stream, local_file)
-        open(local_file, "wb") do |file|
-          file.write(response_stream.body)
-        end
+      def save_file(response_stream, local_file)
+        File.open(local_file, "wb") { |file| file.write(response_stream.body) }
       end
     end
   end
