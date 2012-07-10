@@ -17,6 +17,7 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
 
   s.add_dependency 'rest-client', '~> 1.6'
+  s.add_dependency 'confiture',   '~> 0.1'
 
   s.add_development_dependency 'vcr', '~> 2.1'
   s.add_development_dependency 'webmock', '~> 1.8'
