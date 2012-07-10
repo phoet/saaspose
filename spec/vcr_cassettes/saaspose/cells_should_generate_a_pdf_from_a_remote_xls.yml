@@ -369,4 +369,41 @@ http_interactions:
         ODk3ODRGNz5dDQo+Pg0Kc3RhcnR4cmVmDQoxMzg5OA0KJSVFT0Y=
     http_version: 
   recorded_at: Tue, 10 Jul 2012 20:08:28 GMT
+- request:
+    method: get
+    uri: http://api.saaspose.com/v1.0/cells/saaspose_test.xlsformat=pdf?appSID=80aa6098-da15-48c2-a879-8235d812e5bd&signature=lJPuwsJZyHC0Py7LULhhE0nbLrw
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 400
+      message: Bad Request
+    headers:
+      Cache-Control:
+      - private
+      Transfer-Encoding:
+      - chunked
+      Content-Type:
+      - application/json; charset=utf-8
+      Server:
+      - Microsoft-IIS/7.5
+      X-Aspnet-Version:
+      - 4.0.30319
+      X-Powered-By:
+      - ASP.NET
+      Date:
+      - Tue, 10 Jul 2012 20:47:38 GMT
+    body:
+      encoding: US-ASCII
+      string: ! '"File ''saaspose_test.xlsformat=pdf'' is not found."'
+    http_version: 
+  recorded_at: Tue, 10 Jul 2012 20:46:32 GMT
 recorded_with: VCR 2.1.1

@@ -1,11 +1,9 @@
 module Saaspose
   class Cells
     class << self
-      def convert(name, local_file, save_format)
-        url_doc = Configuration.product_uri + '/cells/' + name + '?format=' + save_format
-        signed_url = Utils.sign(url_doc)
-        response = RestClient.get(signed_url, :accept => 'application/json')
-        Utils.save_file(response, local_file)
+      def convert(name, file, options={:format=>:pdf})
+        url = "/cells/#{name}"
+        Utils.call(url, options, file)
       end
     end
   end

@@ -1,3 +1,4 @@
+require 'cgi'
 require 'rest_client'
 require 'openssl'
 require 'base64'
@@ -40,11 +41,17 @@ module Saaspose
         url_to_sign + "&signature=#{signature}"
       end
 
-      # Parses JSON date value to a valid date format
-      # * :date_string holds the JSON Date value
       def parse_date(date_string)
         seconds_since_epoch = date_string.scan(/[0-9]+/)[0].to_i
         Time.at((seconds_since_epoch-(21600000 + 18000000))/1000)
+      end
+
+      def call(uri, options, file)
+        url = "#{Configuration.product_uri}#{uri}"
+        url << "?" << options.map{|key, value| "#{key}=#{CGI::escape(value.to_s)}"}.join("&") if options
+        signed_url = Utils.sign(url)
+        response   = RestClient.get(signed_url, :accept => 'application/json')
+        Utils.save_file(response, file)
       end
 
       def save_file(response_stream, local_file)

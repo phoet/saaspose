@@ -47,7 +47,7 @@ describe "saaspose" do
 
   context "cells" do
     it "should generate a pdf from a remote xls", :vcr => true do
-      Saaspose::Cells.convert(TEST_XLS_NAME, PDF_PATH, 'pdf')
+      Saaspose::Cells.convert(TEST_XLS_NAME, PDF_PATH)
       File.exists?(PDF_PATH).should be_true
     end
   end
