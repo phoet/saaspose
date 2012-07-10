@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.summary     =  s.description = "Ruby bindings to Saaspose REST API"
   s.authors     = ["Peter Schröder"]
   s.email       = 'phoetmail@googlemail.com'
-  s.homepage    = 'http://nofail.de'
+  s.homepage    = 'https://github.com/phoet/saaspose'
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")

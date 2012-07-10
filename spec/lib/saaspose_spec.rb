@@ -85,8 +85,8 @@ end
 
 def configure_client
   Saaspose::Configuration.configure do |config|
-    config.app_sid     = ENV["SAASPOSE_APPSID"]
-    config.app_key     = ENV["SAASPOSE_APPKEY"]
+    config.app_sid = ENV["SAASPOSE_APPSID"]
+    config.app_key = ENV["SAASPOSE_APPKEY"]
   end
 end
 

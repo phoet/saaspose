@@ -13,8 +13,8 @@ or using bundler
 ## Configuration
 
     Saaspose::Configuration.configure do |config|
-      config.app_sid     = ENV["SAASPOSE_APPSID"]
-      config.app_key     = ENV["SAASPOSE_APPKEY"]
+      config.app_sid = ENV["SAASPOSE_APPSID"]
+      config.app_key = ENV["SAASPOSE_APPKEY"]
     end
 
 ## Usage
@@ -22,3 +22,10 @@ or using bundler
 This is subject to change!
 
 Please have a look at the specs to see how it works currently.
+
+## License
+
+"THE BEER-WARE LICENSE" (Revision 42):
+[ps@nofail.de](mailto:ps@nofail.de) wrote this file. As long as you retain this notice you
+can do whatever you want with this stuff. If we meet some day, and you think
+this stuff is worth it, you can buy me a beer in return Peter Schröder
