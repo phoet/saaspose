@@ -1,4 +1,6 @@
-module Saasposesdk
+require "logger"
+
+module Saaspose
   class Configuration
     class << self
       attr_accessor :product_uri

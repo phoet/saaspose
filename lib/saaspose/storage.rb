@@ -1,4 +1,4 @@
-module Saasposesdk
+module Saaspose
   class Storage
     class << self
       def uploadFile(local_file_path, remote_folder_path)

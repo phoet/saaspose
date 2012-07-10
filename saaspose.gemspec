@@ -1,16 +1,15 @@
 # -*- encoding: utf-8 -*-
 $:.push File.expand_path("../lib", __FILE__)
-require "saasposesdk/version"
+require "saaspose/version"
 
 Gem::Specification.new do |s|
-  s.name        = 'saasposesdk'
-  s.version     = Saasposesdk::VERSION
+  s.name        = 'saaspose'
+  s.version     = Saaspose::VERSION
   s.platform    = Gem::Platform::RUBY
-  s.summary     = "Saaspose.SDK for Ruby"
-  s.description = "Saaspose.SDK for Ruby allows you to use Saaspose API in your Ruby applications"
-  s.authors     = ["Saaspose", "Peter Schröder"]
-  s.email       = 'contact@saaspose.com'
-  s.homepage    = 'http://www.saaspose.com'
+  s.summary     =  s.description = "Ruby bindings to Saaspose REST API"
+  s.authors     = ["Peter Schröder"]
+  s.email       = 'phoetmail@googlemail.com'
+  s.homepage    = 'http://nofail.de'
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")

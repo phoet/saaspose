@@ -5,7 +5,7 @@ require 'base64'
 require 'uri'
 require 'rexml/document'
 
-module Saasposesdk
+module Saaspose
   class Utils
     class << self
       # Signs a URI with your appSID and Key.

@@ -1,4 +1,4 @@
-module Saasposesdk
+module Saaspose
   class Words
     class << self
       def convert(name, local_file, save_format)

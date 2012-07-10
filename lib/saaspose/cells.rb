@@ -1,4 +1,4 @@
-module Saasposesdk
+module Saaspose
   class Cells
     class << self
       def convert(name, local_file, save_format)

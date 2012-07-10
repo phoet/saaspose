@@ -1,4 +1,4 @@
-module Saasposesdk
+module Saaspose
   class Pdf
     class << self
       def convert(name, local_file, save_image_format, page_number, height, width)

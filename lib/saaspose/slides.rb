@@ -1,4 +1,4 @@
-module Saasposesdk
+module Saaspose
   class Slides
     class << self
       def convert(name, local_file, save_format)
