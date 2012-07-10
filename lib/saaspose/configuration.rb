@@ -29,7 +29,7 @@ module Saaspose
       def init_config(force=false)
         return if @init && !force
         @init     = true
-        @product_uri  = ""
+        @product_uri  = "http://api.saaspose.com/v1.0"
         @app_key      = ""
         @app_sid      = ""
         @logger        = Logger.new(STDERR)

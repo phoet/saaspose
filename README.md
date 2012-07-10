@@ -1,79 +1,24 @@
-#Saaspose.SDK for Ruby Repository
+# Ruby bindings to Saaspose REST API
 
-This repository contains Saaspose.SDK for Ruby source code. This SDK allows you to work with Saaspose REST API in your Ruby applications quickly and easily. 
+This gem provides a access to the [Saaspose REST API](http://saaspose.com/docs/display/rest/Home).
 
+## Installation
 
-##What's included in this SDK repository?
+    gem install saaspose
 
-###Code
+or using bundler
 
-<table>
-<tr>
-<th>Module</th>
-<th>Description</th>
-</tr>
+    gem "saaspose"
 
-<tr>
-<td>Common</td>
-<td>This module provides the features commonly used by other sections of the SDK.</td>
-</tr>
+## Configuration
 
-<tr>
-<td>Storage</td>
-<td>This module provides the features to work with Saaspose storage.</td>
-</tr>
+    Saaspose::Configuration.configure do |config|
+      config.app_sid     = ENV["SAASPOSE_APPSID"]
+      config.app_key     = ENV["SAASPOSE_APPKEY"]
+    end
 
-<tr>
-<td>Pdf</td>
-<td>This module provides the features to manipulate PDF files using Saaspose.Pdf.</td>
-</tr>
+## Usage
 
-<tr>
-<td>Words</td>
-<td>This module provides the features to manipulate Word files using Saaspose.Words.</td>
-</tr>
+This is subject to change!
 
-<tr>
-<td>Cells</td>
-<td>This module provides the features to manipulate Excel files using Saaspose.Cells.</td>
-</tr>
-
-<tr>
-<td>Slides</td>
-<td>This module provides the features to manipulate Powerpoint files using Saaspose.Slides.</td>
-</tr>
-
-<tr>
-<td>BarCode</td>
-<td>This module provides the features to manipulate bar codes using Saaspose.BarCode.</td>
-</tr>
-
-
-</table>
-
-
-
-###Data
-
-In order to manipulate any files, you first need to upload them to the Saaspose storage using Storage module.
-
-###Output
-
-The Saaspose.SDK for Ruby allows you to save the output files at your specified location.
-
-
-###Help Material
-
-You may get help regarding Saaspose API or Saaspose.SDK for Ruby on [www.saaspose.com](http://www.saaspose.com).
-
-##How to use Saaspose.SDK for Ruby?
-
-Please see the Saaaspose.SDK for Ruby Examples sections in the [Documentation](http://www.saaspose.com/docs).
-
-
-
- 
-
-
-
-
+Please have a look at the specs to see how it works currently.

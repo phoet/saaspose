@@ -85,7 +85,6 @@ end
 
 def configure_client
   Saaspose::Configuration.configure do |config|
-    config.product_uri = "http://api.saaspose.com/v1.0"
     config.app_sid     = ENV["SAASPOSE_APPSID"]
     config.app_key     = ENV["SAASPOSE_APPKEY"]
   end
