@@ -1,6 +1,6 @@
-require "saaspose"
 require "pry"
 require "vcr"
+require "saaspose"
 
 # See https://github.com/myronmarston/vcr
 VCR.configure do |c|

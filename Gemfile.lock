@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    saaspose (0.0.1)
+    saaspose (0.0.2)
       confiture (~> 0.1)
       rest-client (~> 1.6)
 

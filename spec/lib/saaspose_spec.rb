@@ -8,6 +8,7 @@ describe Saaspose do
   end
 
   before(:each) do
+    configure_client
     [PNG_PATH, PDF_PATH].each { |path| FileUtils.rm(path) if File.exists?(path) }
   end
 
