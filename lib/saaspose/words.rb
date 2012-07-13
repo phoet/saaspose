@@ -1,11 +1,9 @@
 module Saaspose
   class Words
     class << self
-      def convert(name, local_file, save_format)
-        urlDoc = Configuration.product_uri + '/words/' + name + '?format=' + save_format
-        signedURL = Utils.sign(urlDoc)
-        response = RestClient.get(signedURL, :accept => 'application/json')
-        Utils.save_file(response, local_file)
+      def convert(name, file, options={:format=>:pdf})
+        url = "words/#{name}"
+        Utils.call_and_save(url, options, file)
       end
     end
   end

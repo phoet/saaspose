@@ -1,15 +1,6 @@
 require "spec_helper"
 
-describe "saaspose" do
-  REMOTE_ROOT_DIR = ""
-
-  PNG_PATH = "/tmp/test.png"
-  PDF_PATH = "/tmp/test.pdf"
-
-  TEST_PDF_NAME = "saaspose_test.pdf"
-  TEST_PPT_NAME = "saaspose_test.ppt"
-  TEST_DOC_NAME = "saaspose_test.doc"
-  TEST_XLS_NAME = "saaspose_test.xls"
+describe Saaspose do
 
   before(:all) do
     configure_client
@@ -21,8 +12,10 @@ describe "saaspose" do
   end
 
   context "pdf" do
-    it "should generate a png from a remote pdf", :vcr => true do
-      Saaspose::Pdf.convert(TEST_PDF_NAME, PNG_PATH, 'png', '1', '800', '600')
+    let(:page_number) { 1 }
+
+    it "should generate a png from a page of a remote pdf", :vcr => true do
+      Saaspose::Pdf.convert(TEST_PDF_NAME, PNG_PATH, page_number)
       File.exists?(PNG_PATH).should be_true
     end
 
@@ -33,14 +26,14 @@ describe "saaspose" do
 
   context "slides" do
     it "should generate a pdf from a remote ppt", :vcr => true do
-      Saaspose::Slides.convert(TEST_PPT_NAME, PDF_PATH, 'pdf')
+      Saaspose::Slides.convert(TEST_PPT_NAME, PDF_PATH)
       File.exists?(PDF_PATH).should be_true
     end
   end
 
   context "words" do
     it "should generate a pdf from a remote doc", :vcr => true do
-      Saaspose::Words.convert(TEST_DOC_NAME, PDF_PATH, 'pdf')
+      Saaspose::Words.convert(TEST_DOC_NAME, PDF_PATH)
       File.exists?(PDF_PATH).should be_true
     end
   end
@@ -53,52 +46,18 @@ describe "saaspose" do
   end
 
   context "storage" do
-    let(:folder) { Saaspose::Storage::File.new("test", true, Time.at(1334562314), 0) }
+    let(:folder) { Saaspose::Storage::RemoteFile.new("test", true, Time.at(1334562314), 0) }
 
     it "should upload a file to the root dir", :vcr => true do
       resp = Saaspose::Storage.upload(fixture_path(TEST_PDF_NAME), REMOTE_ROOT_DIR)
-      resp.should match("<Status>OK</Status>")
+      resp.should match("{\"Code\":200,\"Status\":\"OK\"}")
     end
 
     it "should get a list of files from the root dir", :vcr => true do
       files = Saaspose::Storage.files(REMOTE_ROOT_DIR)
-      files.first.should be_an_instance_of(Saaspose::Storage::File)
+      files.first.should be_an_instance_of(Saaspose::Storage::RemoteFile)
       files.map(&:name).should include(TEST_PDF_NAME)
       files.first.should eql(folder)
     end
   end
-
-  context "utils" do
-    before(:each) do
-      Saaspose::Configuration.configure do |config|
-        config.app_sid = "SAASPOSE_APPSID"
-        config.app_key = "SAASPOSE_APPKEY"
-      end
-    end
-
-    let(:url) { "http://example.com/path?uschi=true&a_param=yes" }
-    it "should sign a uri" do
-      Saaspose::Utils.sign(url).should eql("http://example.com/path?uschi=true&a_param=yes&appSID=SAASPOSE_APPSID&signature=zl%2BjolbjggyKZ31QgflGVILu%2F0I")
-    end
-  end
-end
-
-def configure_client
-  Saaspose::Configuration.configure do |config|
-    config.app_sid = ENV["SAASPOSE_APPSID"]
-    config.app_key = ENV["SAASPOSE_APPKEY"]
-  end
-end
-
-def ensure_remote_file(test_file)
-  VCR.use_cassette("ensure_remote_file #{test_file}", :record => :new_episodes, :match_requests_on => [:host, :path]) do
-    unless Saaspose::Storage.files.map(&:name).include?(test_file)
-      puts "uploading #{test_file} for testing purposes"
-      Saaspose::Storage.upload(fixture_path(test_file), REMOTE_ROOT_DIR)
-    end
-  end
-end
-
-def fixture_path(name)
-  File.expand_path("../fixtures/#{name}", File.dirname(__FILE__))
 end

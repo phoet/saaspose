@@ -3,59 +3,51 @@ require 'rest_client'
 require 'openssl'
 require 'base64'
 require 'uri'
+require 'json'
 
 module Saaspose
   class Utils
+    DIGEST = OpenSSL::Digest::Digest.new('sha1')
     class << self
-      # Signs a URI with your appSID and Key.
-      # * :url describes the URL to sign
-      def sign(url)
-        url = URI.escape(url)
-        parsed_url = URI.parse(url)
-
-        url_to_sign =''
-        if parsed_url.query.nil?
-          url_to_sign = parsed_url.scheme+"://"+ parsed_url.host + parsed_url.path + "?appSID=" + Configuration.app_sid
-        else
-          url_to_sign = parsed_url.scheme+"://"+ parsed_url.host + parsed_url.path + '?' + parsed_url.query + "&appSID=" + Configuration.app_sid
-        end
-
-        # create a signature using the private key and the URL
-        raw_signature = OpenSSL::HMAC.digest(OpenSSL::Digest::Digest.new('sha1'), Configuration.app_key, url_to_sign)
-
-        #Convert raw to encoded string
-        signature = Base64.strict_encode64(raw_signature).tr('+/','-_')
-
-        #remove invalid character
-        signature = signature.gsub(/[=_-]/,'=' => '', '_' => '%2f', '-' => '%2b')
-
-        #Define expression
-        pat = /%[0-9a-f]{2}/
-
-        #Replace the portion matched to the above pattern to upper case
-        6.times do
-          signature = signature.sub(pat, pat.match(signature).to_s.upcase)
-        end
-
-        # prepend the server and append the signature.
-        url_to_sign + "&signature=#{signature}"
-      end
-
-      def parse_date(date_string)
-        seconds_since_epoch = date_string.scan(/[0-9]+/)[0].to_i
-        Time.at((seconds_since_epoch-(21600000 + 18000000))/1000)
-      end
-
-      def call(uri, options, file)
+      def sign(uri, options=nil)
+        options = options ? options.dup : {}
+        options.merge!(:appSID => Configuration.app_sid)
         url = "#{Configuration.product_uri}#{uri}"
-        url << "?" << options.map{|key, value| "#{key}=#{CGI::escape(value.to_s)}"}.join("&") if options
-        signed_url = Utils.sign(url)
-        response   = RestClient.get(signed_url, :accept => 'application/json')
+
+        url << "?" << options.map{|key, value| "#{key}=#{CGI::escape(value.to_s)}"}.join("&")
+
+        signature = OpenSSL::HMAC.digest(DIGEST, Configuration.app_key, url)
+        signature = Base64.strict_encode64(signature).chop
+        signature = URI::escape(signature, /[^A-z0-9]/)
+
+        "#{url}&signature=#{signature}"
+      end
+
+      def call(uri, options=nil)
+        signed_url = Utils.sign(uri, options)
+        log(:debug, "calling: #{signed_url}")
+        RestClient.get(signed_url, :accept => 'application/json')
+      rescue
+        log(:error, "error: #{$!.inspect}")
+        raise
+      end
+
+      def call_and_parse(uri, options=nil)
+        response = call(uri, options)
+        JSON.parse(response.body)
+      end
+
+      def call_and_save(uri, options, file)
+        response   = response = call(uri, options)
         Utils.save_file(response, file)
       end
 
       def save_file(response_stream, local_file)
         File.open(local_file, "wb") { |file| file.write(response_stream.body) }
+      end
+
+      def log(severity, message)
+        Configuration.logger.send(severity, message) if Configuration.logger
       end
     end
   end

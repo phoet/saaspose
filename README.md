@@ -19,9 +19,30 @@ or using bundler
 
 ## Usage
 
-This is subject to change!
+Please have a look at the specs to see all the examples!
 
-Please have a look at the specs to see how it works currently.
+    # generate a png from a page of a remote pdf
+    Saaspose::Pdf.convert("remote_pdf_file.pdf", "local_png.png", 1)
+    # read the number of pages from a remote pdf
+    Saaspose::Pdf.page_count"remote_pdf_file.pdf"
+    # => 1
+
+    # generate a pdf from a remote ppt
+    Saaspose::Slides.convert"remote_ppt_file.ppt", "local_pdf.pdf")
+
+    # generate a pdf from a remote doc
+    Saaspose::Words.convert"remote_doc_file.doc", "local_pdf.pdf")
+
+    # generate a pdf from a remote xls
+    Saaspose::Cells.convert("remote_xls_file.xls", "local_pdf.pdf")
+
+    # upload a file to the root dir
+    Saaspose::Storage.upload("example.pdf", "")
+
+    # get a list of files from the root dir
+    files = Saaspose::Storage.files("")
+    files.first
+    # => <struct Saaspose::Storage::RemoteFile name="test", folder=true, modified=1969-12-31 14:00:00 +0100, size=0>
 
 ## License
 

@@ -1,20 +1,15 @@
-require "rexml/document"
-
 module Saaspose
   class Pdf
     class << self
-      def convert(name, local_file, save_image_format, page_number, height, width)
-        url_doc = Configuration.product_uri + '/pdf/' + name + '/pages/' + page_number + '?format=' + save_image_format + '&width=' + width + '&height=' + height
-        signed_url = Utils.sign(url_doc)
-        response = RestClient.get(signed_url, :accept => 'application/json')
-        Utils.save_file(response, local_file)
+      def convert(name, file, page_number, options={:format=>:png, :height=>800, :width=>600})
+        url = "pdf/#{name}/pages/#{page_number}"
+        Utils.call_and_save(url, options, file)
       end
 
       def page_count(name)
-        url_page = Configuration.product_uri + '/pdf/' + name + '/pages'
-        signed_url = Utils.sign(url_page)
-        response = RestClient.get(signed_url, :accept => 'application/xml')
-        REXML::Document.new(response.body).elements.size
+        url = "pdf/#{name}/pages"
+        result = Utils.call_and_parse(url)
+        result["Pages"]["Links"].size
       end
     end
   end
