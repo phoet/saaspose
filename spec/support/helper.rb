@@ -1,11 +1,12 @@
 # Setting for CI
-ENV["SAASPOSE_APPSID"] ||= "appsid"
-ENV["SAASPOSE_APPKEY"] ||= "appkey"
+ENV["SAASPOSE_APPSID"] ||= '67a7d87f-2870-4aaf-a651-f5d185c98fd4'
+ENV["SAASPOSE_APPKEY"] ||= 'b993b3cbd3850d1b499be4410e322274'
 
 REMOTE_ROOT_DIR = ""
 
 PNG_PATH = "/tmp/test.png"
 PDF_PATH = "/tmp/test.pdf"
+DOC_PATH = "/tmp/test.doc"
 
 TEST_PDF_NAME = "saaspose_test.pdf"
 TEST_PPT_NAME = "saaspose_test.ppt"

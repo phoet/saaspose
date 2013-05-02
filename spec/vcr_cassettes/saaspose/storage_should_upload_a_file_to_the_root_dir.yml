@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: put
-    uri: http://api.saaspose.com/v1.0/storage/file/saaspose_test.pdf?appSID=80aa6098-da15-48c2-a879-8235d812e5bd&signature=LXLvSrCHSimX6g1QcA7loPlXdmg
+    uri: http://api.saaspose.com/v1.0/storage/file/saaspose_test.pdf?appSID=67a7d87f-2870-4aaf-a651-f5d185c98fd4&signature=JLPDbVam0VTcQ4cS66BsSH83FBI
     body:
       encoding: ASCII-8BIT
       string: !binary |-
@@ -795,10 +795,10 @@ http_interactions:
       X-Powered-By:
       - ASP.NET
       Date:
-      - Fri, 13 Jul 2012 11:11:02 GMT
+      - Thu, 02 May 2013 13:26:05 GMT
     body:
       encoding: US-ASCII
       string: ! '{"Code":200,"Status":"OK"}'
     http_version: 
-  recorded_at: Fri, 13 Jul 2012 11:08:51 GMT
+  recorded_at: Thu, 02 May 2013 13:25:58 GMT
 recorded_with: VCR 2.1.1

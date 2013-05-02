@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: http://api.saaspose.com/v1.0/storage/folder?appSID=80aa6098-da15-48c2-a879-8235d812e5bd&signature=VWheE46Q85XgfxZZ2Y2rxM3X4oA
+    uri: http://api.saaspose.com/v1.0/storage/folder?appSID=67a7d87f-2870-4aaf-a651-f5d185c98fd4&signature=5ALyPxa3xsM30cwmK0HIHlD8wyw
     body:
       encoding: US-ASCII
       string: ''
@@ -31,10 +31,10 @@ http_interactions:
       X-Powered-By:
       - ASP.NET
       Date:
-      - Fri, 13 Jul 2012 11:10:52 GMT
+      - Thu, 02 May 2013 13:25:49 GMT
     body:
       encoding: US-ASCII
-      string: ! '{"Code":200,"Status":"OK","Files":[{"IsFolder":true,"ModifiedDate":"\/Date(1334601914919-0500)\/","Name":"test","Path":"\/\/test","Size":0},{"IsFolder":true,"ModifiedDate":"\/Date(1334602272513-0500)\/","Name":"test_data","Path":"\/\/test_data","Size":0},{"IsFolder":false,"ModifiedDate":"\/Date(1340040652163-0500)\/","Name":"saaspose_test.doc","Path":"\/\/saaspose_test.doc","Size":15360},{"IsFolder":false,"ModifiedDate":"\/Date(1342176617353-0500)\/","Name":"saaspose_test.pdf","Path":"\/\/saaspose_test.pdf","Size":34253},{"IsFolder":false,"ModifiedDate":"\/Date(1335467073689-0500)\/","Name":"saaspose_test.ppt","Path":"\/\/saaspose_test.ppt","Size":365568},{"IsFolder":false,"ModifiedDate":"\/Date(1340041086694-0500)\/","Name":"saaspose_test.xls","Path":"\/\/saaspose_test.xls","Size":10240},{"IsFolder":false,"ModifiedDate":"\/Date(1334686346309-0500)\/","Name":"test.pdf","Path":"\/\/test.pdf","Size":34253}]}'
+      string: ! '{"Code":200,"Status":"OK","Files":[{"IsFolder":true,"ModifiedDate":"\/Date(1367498577072-0500)\/","Name":"test","Path":"\/\/test","Size":0},{"IsFolder":false,"ModifiedDate":"\/Date(1367498560166-0500)\/","Name":"saaspose_test.doc","Path":"\/\/saaspose_test.doc","Size":15360},{"IsFolder":false,"ModifiedDate":"\/Date(1367498578822-0500)\/","Name":"saaspose_test.pdf","Path":"\/\/saaspose_test.pdf","Size":34253},{"IsFolder":false,"ModifiedDate":"\/Date(1367498557994-0500)\/","Name":"saaspose_test.ppt","Path":"\/\/saaspose_test.ppt","Size":365568},{"IsFolder":false,"ModifiedDate":"\/Date(1367498563041-0500)\/","Name":"saaspose_test.xls","Path":"\/\/saaspose_test.xls","Size":10240}]}'
     http_version: 
-  recorded_at: Fri, 13 Jul 2012 11:08:41 GMT
+  recorded_at: Thu, 02 May 2013 13:25:42 GMT
 recorded_with: VCR 2.1.1
