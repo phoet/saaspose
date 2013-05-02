@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: http://api.saaspose.com/v1.0/pdf/saaspose_test.pdf/pages?appSID=80aa6098-da15-48c2-a879-8235d812e5bd&signature=9emmU1WF1cGMWuuG5/5mGWRiv4s
+    uri: http://api.saaspose.com/v1.0/pdf/saaspose_test.pdf/pages?appSID=67a7d87f-2870-4aaf-a651-f5d185c98fd4&signature=+d6/IR99ikwFKleOrEeg/AHNbYE
     body:
       encoding: US-ASCII
       string: ''
@@ -31,10 +31,10 @@ http_interactions:
       X-Powered-By:
       - ASP.NET
       Date:
-      - Fri, 13 Jul 2012 11:10:56 GMT
+      - Thu, 02 May 2013 13:25:52 GMT
     body:
       encoding: US-ASCII
-      string: ! '{"Code":200,"Status":"OK","Pages":{"Links":[{"Href":"http:\/\/api.saaspose.com\/v1.0\/pdf\/saaspose_test.pdf\/pages","Rel":"self","Title":null,"Type":null}],"List":[{"Links":[{"Href":"\/1","Rel":"self","Title":null,"Type":null}],"Id":0,"Images":null}]}}'
+      string: ! '{"Code":200,"Status":"OK","Pages":{"Links":[{"Href":"http:\/\/api.saaspose.com\/v1.0\/pdf\/saaspose_test.pdf\/pages","Rel":"self","Title":null,"Type":null}],"List":[{"Links":[{"Href":"\/1","Rel":"self","Title":null,"Type":null}],"Id":0,"Images":null,"Rectangle":null}]}}'
     http_version: 
-  recorded_at: Fri, 13 Jul 2012 11:08:45 GMT
+  recorded_at: Thu, 02 May 2013 13:25:45 GMT
 recorded_with: VCR 2.1.1

@@ -14,14 +14,20 @@ describe Saaspose do
 
   context "pdf" do
     let(:page_number) { 1 }
+    let(:options) {{:format => :doc}}
 
     it "should generate a png from a page of a remote pdf", :vcr => true do
-      Saaspose::Pdf.convert(TEST_PDF_NAME, PNG_PATH, page_number)
+      Saaspose::Pdf.convert_page(TEST_PDF_NAME, PNG_PATH, page_number)
       File.exists?(PNG_PATH).should be_true
     end
 
     it "should read the number of pages from a remote pdf", :vcr => true do
       Saaspose::Pdf.page_count(TEST_PDF_NAME).should eql(1)
+    end
+    
+    it "should generate a doc from a remote pdf", :vcr => true do
+      Saaspose::Pdf.convert(TEST_PDF_NAME, DOC_PATH, options)
+      File.exists?(DOC_PATH).should be_true
     end
   end
 
@@ -47,7 +53,11 @@ describe Saaspose do
   end
 
   context "storage" do
-    let(:folder) { Saaspose::Storage::RemoteFile.new("test", true, Time.at(1334562314), 0) }
+    
+    it "should create a folder on the root of the remote storage", :vcr => true do
+      resp = Saaspose::Storage.create_folder("test", "")
+      resp.should match("OK")
+    end
 
     it "should upload a file to the root dir", :vcr => true do
       resp = Saaspose::Storage.upload(fixture_path(TEST_PDF_NAME), REMOTE_ROOT_DIR)
@@ -58,7 +68,6 @@ describe Saaspose do
       files = Saaspose::Storage.files(REMOTE_ROOT_DIR)
       files.first.should be_an_instance_of(Saaspose::Storage::RemoteFile)
       files.map(&:name).should include(TEST_PDF_NAME)
-      files.first.should eql(folder)
     end
   end
 end
