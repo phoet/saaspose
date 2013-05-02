@@ -1,6 +1,6 @@
 # Setting for CI
-ENV["SAASPOSE_APPSID"] ||= '67a7d87f-2870-4aaf-a651-f5d185c98fd4'
-ENV["SAASPOSE_APPKEY"] ||= 'b993b3cbd3850d1b499be4410e322274'
+ENV["SAASPOSE_APPSID"] ||= 'appsid'
+ENV["SAASPOSE_APPKEY"] ||= 'appkey'
 
 REMOTE_ROOT_DIR = ""
 
