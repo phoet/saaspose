@@ -11,6 +11,14 @@ module Saaspose
         signed_url = Utils.sign(url_file)
         RestClient.put(signed_url, File.new(local_file_path, 'rb'), :accept => 'application/json')
       end
+      
+      def create_folder(name, remote_folder_path)
+        uri = "storage/folder/"
+        uri << "/#{remote_folder_path}" unless remote_folder_path.empty?
+        uri << "#{name}"
+        signed_url = Utils.sign(uri)
+        RestClient.put(signed_url, :accept => 'application/json')
+      end
 
       def files(remote_folder_path="")
         uri = "storage/folder"
